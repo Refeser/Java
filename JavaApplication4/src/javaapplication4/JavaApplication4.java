@@ -7,18 +7,18 @@ import java.lang.annotation.Native;
 import javax.swing.*;
 
 public class JavaApplication4 {
-    static int count;
-    public static void main(String[] args){
-        count = 0;
-        Balls balls = new Balls();
-    } 
+static int count;
+public static void main(String[] args){
+count = 0;
+Balls balls = new Balls();
+}
 }
 class Balls extends Frame implements Observer, ActionListener, ItemListener {
 private LinkedList LL = new LinkedList();
 private Color col;
 private String name;
 public Frame f;
-private Button b, b1;
+private Button b;
 private Choice c;
 private TextField tf;
 Balls(){
@@ -34,14 +34,6 @@ b.setActionCommand("OK");
 
 b.addActionListener(this);
 f.add(b, new Point(20,20));
-
-b1 = new Button("Выбрать по номеру");
-b1.setSize(new Dimension(10,40));
-b1.setActionCommand("Okay");
-
-b1.addActionListener(this);
-f.add(b1, new Point(20,20));
-
 c = new Choice();
 c.addItem("Petrov");
 c.addItem("Ivanov");
@@ -66,6 +58,7 @@ if (!LL.isEmpty()){
 for (Object LL1 : LL) {
 Ball ball = (Ball) LL1;
 g.setColor(ball.col);
+//g.drawOval(ball.x, ball.y, 20, 20);
 g.drawString(name, ball.x-10, ball.y+10);
 }
 }
@@ -73,11 +66,6 @@ g.drawString(name, ball.x-10, ball.y+10);
 public void itemStateChanged (ItemEvent iE) {}
 public void actionPerformed (ActionEvent aE) {
 String str = aE.getActionCommand();
-if(str.equals ("Okay")){
-    if(tf.equals("0")||tf.equals("1")||tf.equals("2")||tf.equals("3")||tf.equals("4")){
-        c.getSelectedIndex() = Integer.parseInt(tf.toString());
-    }
-}
 if (str.equals ("OK")){
 switch (c.getSelectedIndex()) {
 case 0: col= Color.blue; name = "Petrov"; break;
@@ -109,6 +97,7 @@ thr = new Thread(this,JavaApplication4.count+":"+text+":");
 thr.start();
 }
 public void run(){
+    Frame f = new Frame();     
 while (true){
 if(x==475) xplus = false;
 if(x==-1) xplus = true;
@@ -122,6 +111,7 @@ catch (InterruptedException e){}
 }
 }
 }
+
 class WindowAdapter2 extends WindowAdapter {
 public void windowClosing (WindowEvent wE) {System.exit (0);}
 }
